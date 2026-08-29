@@ -1669,11 +1669,16 @@ function closeSheet(clearState = true) {
 /* ---------------- caution index ---------------- */
 
 function renderFab(n) {
+  const isIndex = state.view === "index";
   return h("button", {
     class: "fab",
-    onclick: () => { state.view = state.view === "index" ? "day" : "index"; render(); },
-  }, icon("warn", 14), state.view === "index" ? "Back to day" : "Watch out for",
-     state.view === "index" ? null : h("span", { class: "fab__n" }, String(n)));
+    "aria-label": isIndex
+      ? "Back to the day view"
+      : `Cautions — ${n} warnings and open questions across the whole trip`,
+    title: isIndex ? "Back to the day view" : "Every warning and open question, in one list",
+    onclick: () => { state.view = isIndex ? "day" : "index"; render(); },
+  }, icon("warn", 14), isIndex ? "Back to day" : "Cautions",
+     isIndex ? null : h("span", { class: "fab__n", "aria-hidden": "true" }, String(n)));
 }
 
 function renderIndex() {
@@ -1681,7 +1686,7 @@ function renderIndex() {
   const scroll = h("div", { class: "strip-scroll" });
   scroll.append(
     h("div", { class: "day-head" },
-      h("div", { class: "day-head__meta" }, h("span", {}, `${flags.length} flags across ${state.trip.days.length} days`)),
+      h("div", { class: "day-head__meta" }, h("span", {}, `${flags.length} cautions across ${state.trip.days.length} days`)),
       h("h1", {}, "Everything that could bite"),
     ),
   );
@@ -1732,6 +1737,6 @@ setInterval(() => { if (state.trip && !state.sheet) render(); }, 60_000);
 load();
 
 </script>
-<!-- Shared snapshot generated August 29, 2026 at 9:21 AM PT. Ticking a dose done saves to this device only. -->
+<!-- Shared snapshot generated August 29, 2026 at 9:36 AM PT. Ticking a dose done saves to this device only. -->
 </body>
 </html>
