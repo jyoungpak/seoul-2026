@@ -1337,6 +1337,8 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
 }
 
 .ov-day__fixed {
+  display: inline-block;
+  margin-top: 5px;
   font-family: var(--font-data);
   font-variant-numeric: tabular-nums;
   font-size: 10px;
@@ -1348,6 +1350,8 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
   border-radius: 2px;
   padding: 2px 5px;
 }
+
+.ov-day__fixed + .ov-day__gist { margin-top: 5px; }
 
 .ov-foot {
   margin: 22px 0 0;
@@ -2041,7 +2045,12 @@ function renderOverview() {
 
       band.append(h("button", {
         class: `ov-day${day.date === now.date ? " ov-day--today" : ""}`,
-        "aria-label": `${dowOf(day.date)} ${monOf(day.date)} ${dayNum(day.date)} — ${day.title}`,
+        "aria-label": [
+          `${dowOf(day.date)} ${monOf(day.date)} ${dayNum(day.date)}`,
+          day.title,
+          fixed ? `${fixed.start} fixed` : null,
+          day.gist || null,
+        ].filter(Boolean).join(" — "),
         onclick: () => { state.view = "day"; state.day = day.date; render(); },
       },
         h("span", { class: "ov-day__date", "aria-hidden": "true" },
@@ -2050,6 +2059,7 @@ function renderOverview() {
         ),
         h("span", { class: "ov-day__body" },
           h("span", { class: "ov-day__title" }, day.title),
+          fixed ? h("span", { class: "ov-day__fixed" }, `${fixed.start} fixed`) : null,
           h("span", { class: "ov-day__gist" }, day.gist || ""),
         ),
         h("span", { class: "ov-day__side" },
@@ -2058,7 +2068,6 @@ function renderOverview() {
             h("span", { class: "u-sr" }, sky.label),
           ) : null,
           h("span", { class: "ov-day__pace" }, pace),
-          fixed ? h("span", { class: "ov-day__fixed" }, `${fixed.start} fixed`) : null,
         ),
       ));
     }
@@ -2126,6 +2135,6 @@ setInterval(() => { if (state.trip && !state.sheet) render(); }, 60_000);
 load();
 
 </script>
-<!-- Shared snapshot generated August 29, 2026 at 11:38 AM PT. Ticking a dose done saves to this device only. -->
+<!-- Shared snapshot generated August 29, 2026 at 11:44 AM PT. Ticking a dose done saves to this device only. -->
 </body>
 </html>
