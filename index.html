@@ -13,13 +13,15 @@
   ------------------------------------------------------------------
   The world is a Korean pharmacy dose strip (약포지): heat-sealed sachets
   in a perforated run, thermal print on translucent film, caution labels
-  affixed by hand. Every colour has one job:
+  affixed by hand. The palette is mineral — dancheong (단청) pigment from
+  the palace eaves, over a Goryeo celadon (청자) tray. Every colour has one
+  job:
 
     ink     — print
-    red     — prescribed / fixed / the live "now" rule
-    amber   — caution label
-    blue    — rest, naps, protected time
-    kraft   — the envelope that carries a leg
+    red     — prescribed / fixed / the live "now" rule    주홍 vermilion
+    amber   — caution label                               황 ochre
+    blue    — rest, naps, protected time                  청 indigo
+    hanji   — the envelope that carries a leg             뇌록 mineral green
 
   Contrast floor is 4.5:1 for body copy. Two readers are 69 and 70, and the
   primary reader is holding a baby, so nothing here goes below 14px and no
@@ -29,30 +31,32 @@
 :root {
   color-scheme: light;
 
-  /* Ground: polypropylene dispensing tray, cool and slightly green */
-  --tray:        #E4E7E0;
-  --tray-deep:   #D6DAD1;
-  --film:        #FBFCF9;
-  --film-edge:   #C9CEC3;
+  /* Ground: polypropylene dispensing tray, glazed the pale grey-green of
+     Goryeo celadon (청자). Cool, so the mineral signals sit louder on it. */
+  --tray:        #DBE3E0;
+  --tray-deep:   #C8D4D0;
+  --film:        #F8FBFA;
+  --film-edge:   #BBC9C5;
 
   /* Print */
-  --ink:         #161814;
-  --ink-soft:    #4E554A;   /* tinted from the ground's hue, never neutral gray */
-  --ink-faint:   #79806F;
+  --ink:         #101614;
+  --ink-soft:    #42504C;   /* tinted from the ground's hue, never neutral gray */
+  --ink-faint:   #586764;
 
-  /* Signal roles */
-  --red:         #B4102A;
-  --red-deep:    #8A0C20;
-  --red-wash:    #F7E3E5;
-  --amber:       #F0B02A;
-  --amber-deep:  #4A3403;
-  --amber-wash:  #FBEFD2;
-  --blue:        #1F5E7E;
-  --blue-wash:   #DEEAF0;
-  --kraft:       #C4A87C;
-  --kraft-deep:  #6B5535;
-  --kraft-wash:  #EFE4CE;
-  --green:       #2F6B42;
+  /* Signal roles — drawn from dancheong (단청), the mineral paint on the
+     palace eaves at Gyeongbokgung, where the 13 September shoot happens. */
+  --red:         #B0182C;   /* 주홍 vermilion */
+  --red-deep:    #85142B;
+  --red-wash:    #FAE5E4;
+  --amber:       #C87C2A;   /* 황 ochre, dusted down off gold */
+  --amber-deep:  #5C3113;
+  --amber-wash:  #FAE9DA;
+  --blue:        #235C82;   /* 청 indigo */
+  --blue-wash:   #DCE9F0;
+  --hanji:       #5E9384;   /* 뇌록 mineral green, on mulberry paper */
+  --hanji-deep:  #2C5449;
+  --hanji-wash:  #C3D8CF;
+  --green:       #2E6B52;
 
   --font-print: var(--font-sans, -apple-system, BlinkMacSystemFont, "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", sans-serif);
   --font-data:  var(--font-mono, ui-monospace, SFMono-Regular, Menlo, Consolas, monospace);
@@ -74,29 +78,30 @@
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-color-mode="light"]) {
-    /* The same pharmacy at night: the tray goes dark, the print goes warm,
-       the signal colours stay signals but lift to hold contrast. */
-    --tray:        #16181A;
-    --tray-deep:   #0F1113;
-    --film:        #22262A;
-    --film-edge:   #363C42;
+    /* The same pharmacy at night. Composed, not inverted: the celadon glaze
+       goes to unlit stoneware, and each mineral pigment is re-mixed lighter
+       and less saturated so it still reads as the same signal by lamplight. */
+    --tray:        #101719;
+    --tray-deep:   #0A1012;
+    --film:        #1B2427;
+    --film-edge:   #33413F;
 
-    --ink:         #F0F2EC;
-    --ink-soft:    #A9B2A6;
-    --ink-faint:   #7E877C;
+    --ink:         #EDF3F0;
+    --ink-soft:    #A6B4AF;
+    --ink-faint:   #7E8D89;
 
-    --red:         #FF8A93;
-    --red-deep:    #FFB0B6;
-    --red-wash:    #3A1D22;
-    --amber:       #F5C258;
-    --amber-deep:  #2A1D02;
-    --amber-wash:  #3A2E12;
-    --blue:        #7FC3E3;
-    --blue-wash:   #16303C;
-    --kraft:       #C4A87C;
-    --kraft-deep:  #E4D3B4;
-    --kraft-wash:  #2C2517;
-    --green:       #7FCB98;
+    --red:         #FF9096;
+    --red-deep:    #FFB6B8;
+    --red-wash:    #3B1D21;
+    --amber:       #E5A863;
+    --amber-deep:  #F3D3A8;   /* light at night: it is the text on amber-wash */
+    --amber-wash:  #3A2A15;
+    --blue:        #87C5E4;
+    --blue-wash:   #12303B;
+    --hanji:       #84BFAC;
+    --hanji-deep:  #C2E2D6;
+    --hanji-wash:  #162C27;
+    --green:       #84CCA6;
   }
 }
 
@@ -167,11 +172,11 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
   position: relative;
   background:
     /* Kraft fibre. Two offset speckle fields so the grain never tiles visibly. */
-    radial-gradient(circle at 17% 34%, color-mix(in srgb, var(--kraft-deep) 13%, transparent) 0 0.6px, transparent 0.6px),
-    radial-gradient(circle at 68% 71%, color-mix(in srgb, var(--kraft-deep) 9%, transparent) 0 0.5px, transparent 0.5px),
-    linear-gradient(180deg, var(--kraft-wash), color-mix(in srgb, var(--kraft-wash) 88%, var(--tray)));
+    radial-gradient(circle at 17% 34%, color-mix(in srgb, var(--hanji-deep) 13%, transparent) 0 0.6px, transparent 0.6px),
+    radial-gradient(circle at 68% 71%, color-mix(in srgb, var(--hanji-deep) 9%, transparent) 0 0.5px, transparent 0.5px),
+    linear-gradient(180deg, var(--hanji-wash), color-mix(in srgb, var(--hanji-wash) 88%, var(--tray)));
   background-size: 37px 29px, 23px 41px, auto;
-  border-bottom: 1px solid color-mix(in srgb, var(--kraft) 55%, transparent);
+  border-bottom: 1px solid color-mix(in srgb, var(--hanji) 55%, transparent);
   padding: 12px 16px 0;
 }
 
@@ -208,7 +213,7 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
   font-size: 10px;
   letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: var(--kraft-deep);
+  color: var(--hanji-deep);
   line-height: 1.4;
 }
 
@@ -230,7 +235,7 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
   font-size: 10px;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--kraft-deep);
+  color: var(--hanji-deep);
   white-space: nowrap;
   line-height: 1.4;
 }
@@ -665,11 +670,11 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
 
 .sachet--fixed   { --seal: var(--red); }
 .sachet--rest    { --seal: var(--blue); }
-.sachet--meal    { --seal: var(--kraft); }
+.sachet--meal    { --seal: var(--hanji); }
 .sachet--medical { --seal: var(--green); }
-.sachet--transit { --seal: color-mix(in srgb, var(--blue) 52%, var(--kraft)); }
-.sachet--outing  { --seal: color-mix(in srgb, var(--kraft) 70%, var(--red)); }
-.sachet--shop    { --seal: color-mix(in srgb, var(--kraft) 55%, var(--ink)); }
+.sachet--transit { --seal: color-mix(in srgb, var(--blue) 52%, var(--hanji)); }
+.sachet--outing  { --seal: color-mix(in srgb, var(--hanji) 70%, var(--red)); }
+.sachet--shop    { --seal: color-mix(in srgb, var(--hanji) 55%, var(--ink)); }
 .sachet--admin   { --seal: color-mix(in srgb, var(--ink) 38%, var(--film)); }
 .sachet--idea    { --seal: color-mix(in srgb, var(--ink) 22%, transparent); }
 
@@ -775,7 +780,7 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
   padding: 3px 7px;
 }
 
-.who--split { color: var(--kraft-deep); background: var(--kraft-wash); }
+.who--split { color: var(--hanji-deep); background: var(--hanji-wash); }
 
 /* The 조제 stamp: booked and paid for. */
 .stamp {
@@ -1100,11 +1105,11 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
 
 .index-row--fixed   { --seal: var(--red); }
 .index-row--rest    { --seal: var(--blue); }
-.index-row--meal    { --seal: var(--kraft); }
+.index-row--meal    { --seal: var(--hanji); }
 .index-row--medical { --seal: var(--green); }
-.index-row--transit { --seal: color-mix(in srgb, var(--blue) 52%, var(--kraft)); }
-.index-row--outing  { --seal: color-mix(in srgb, var(--kraft) 70%, var(--red)); }
-.index-row--shop    { --seal: color-mix(in srgb, var(--kraft) 55%, var(--ink)); }
+.index-row--transit { --seal: color-mix(in srgb, var(--blue) 52%, var(--hanji)); }
+.index-row--outing  { --seal: color-mix(in srgb, var(--hanji) 70%, var(--red)); }
+.index-row--shop    { --seal: color-mix(in srgb, var(--hanji) 55%, var(--ink)); }
 .index-row--admin   { --seal: color-mix(in srgb, var(--ink) 38%, var(--film)); }
 .index-row--idea    { --seal: color-mix(in srgb, var(--ink) 22%, transparent); }
 
@@ -1232,7 +1237,7 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
   font-family: var(--font-data);
   font-size: 10.5px;
   letter-spacing: 0.16em;
-  color: var(--kraft-deep);
+  color: var(--hanji-deep);
 }
 
 .ov-course__name {
@@ -1797,10 +1802,10 @@ function renderSachet(dose, i, day) {
 /* ---------------- expanded sachet ---------------- */
 
 const SEAL_VAR = {
-  fixed: "var(--red)", rest: "var(--blue)", meal: "var(--kraft)", medical: "var(--green)",
-  transit: "color-mix(in srgb, var(--blue) 52%, var(--kraft))",
-  outing: "color-mix(in srgb, var(--kraft) 70%, var(--red))",
-  shop: "color-mix(in srgb, var(--kraft) 55%, var(--ink))",
+  fixed: "var(--red)", rest: "var(--blue)", meal: "var(--hanji)", medical: "var(--green)",
+  transit: "color-mix(in srgb, var(--blue) 52%, var(--hanji))",
+  outing: "color-mix(in srgb, var(--hanji) 70%, var(--red))",
+  shop: "color-mix(in srgb, var(--hanji) 55%, var(--ink))",
   admin: "color-mix(in srgb, var(--ink) 38%, var(--film))",
   idea: "color-mix(in srgb, var(--ink) 22%, transparent)",
 };
@@ -2135,6 +2140,6 @@ setInterval(() => { if (state.trip && !state.sheet) render(); }, 60_000);
 load();
 
 </script>
-<!-- Shared snapshot generated August 29, 2026 at 11:49 AM PT. Ticking a dose done saves to this device only. -->
+<!-- Shared snapshot generated August 29, 2026 at 12:00 PM PT. Ticking a dose done saves to this device only. -->
 </body>
 </html>
